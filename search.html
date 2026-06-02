@@ -73,24 +73,16 @@
         }
 
         .search-layout {
-            display: grid;
-            grid-template-columns: 320px 1fr;
+            display: flex;
+            align-items: flex-start;
             gap: 24px;
             padding-top: 100px;
             position: relative;
             z-index: 20;
         }
 
-        .search-main {
-            display: grid;
-            gap: 24px;
-            margin-left: 0;
-            padding-bottom: 120px;
-        }
-
         .sidebar {
-            position: fixed;
-            left: 24px;
+            position: sticky;
             top: 100px;
             width: 300px;
             background: rgba(12, 14, 32, 0.96);
@@ -100,7 +92,7 @@
             box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
             max-height: calc(100vh - 120px);
             overflow-y: auto;
-            z-index: 20;
+            z-index: 2;
         }
 
         .sidebar-button {
@@ -300,11 +292,6 @@
             font-size: 0.9rem;
         }
 
-        .search-main {
-            display: grid;
-            gap: 24px;
-        }
-
         .home-recommendation {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
@@ -335,25 +322,28 @@
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 20px;
         }
 
         /* ── MUSIC PLAYER ── */
         .audio-player-panel {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            max-width: 100%;
+            min-height: 90px;
             height: 90px;
             background: rgba(18, 18, 30, 0.97);
             backdrop-filter: blur(20px);
             display: none;
             align-items: center;
             padding: 0 24px;
-            z-index: 99999;
+            z-index: 999999 !important;
             pointer-events: auto;
+            box-sizing: border-box;
             border-top: 1px solid rgba(102, 126, 234, 0.15);
         }
 
@@ -365,6 +355,13 @@
         .audio-player-panel button,
         .audio-player-panel input {
             pointer-events: auto;
+        }
+
+        .search-main {
+            display: grid;
+            gap: 24px;
+            margin-left: 0;
+            padding-bottom: 180px;
         }
 
         .player-controls {
@@ -491,61 +488,6 @@
             background: #667eea;
             cursor: pointer;
             border: none;
-        }
-
-        @media (max-width: 768px) {
-            .audio-player-panel {
-                height: 100px;
-                padding: 0 16px;
-            }
-            .track-info {
-                min-width: 150px;
-            }
-            .control-btn {
-                font-size: 1.2rem;
-                padding: 6px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .header {
-                flex-wrap: wrap;
-                justify-content: space-between;
-                padding: 16px;
-            }
-
-            .header-search {
-                max-width: 100%;
-                width: 100%;
-                margin: 12px 0 0;
-            }
-
-            .search-layout {
-                grid-template-columns: 1fr;
-                padding-top: 20px;
-            }
-
-            .sidebar {
-                position: static !important;
-                max-height: none !important;
-                width: 100% !important;
-                margin-bottom: 24px;
-                top: auto !important;
-                left: auto !important;
-                box-sizing: border-box;
-            }
-
-            .search-main {
-                margin-left: 0 !important;
-            }
-
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .search-page {
-                padding: 100px 16px 120px;
-            }
         }
 
         .result-label {
