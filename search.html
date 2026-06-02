@@ -514,24 +514,29 @@
 
             .search-layout {
                 grid-template-columns: 1fr;
-                padding-top: 140px;
+                padding-top: 20px;
             }
 
             .sidebar {
-                position: static;
-                max-height: none;
-                width: 100%;
+                position: static !important;
+                max-height: none !important;
+                width: 100% !important;
                 margin-bottom: 24px;
-                top: auto;
-                left: auto;
+                top: auto !important;
+                left: auto !important;
+                box-sizing: border-box;
             }
 
             .search-main {
-                margin-left: 0;
+                margin-left: 0 !important;
             }
 
             .category-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .search-page {
+                padding: 100px 16px 120px;
             }
         }
 
@@ -1325,7 +1330,7 @@
             
             // Update player UI
             playerTitle.textContent = moodName;
-            playerSubtitle.textContent = `\u2014 ${fileName}`;
+            playerSubtitle.textContent = `— ${fileName}`;
             trackCover.src = moodImages[moodName];
             
             // Show player panel
@@ -1335,7 +1340,7 @@
             moodAudio.play().catch(() => {
                 // Ignore autoplay interruption; user can manually resume playback.
             });
-            playPauseBtn.innerHTML = '<i class=\"fas fa-pause\"></i>';
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
             
             // Highlight current item
             document.querySelectorAll('.music-list li').forEach(li => {
@@ -1353,11 +1358,11 @@
             
             if (moodAudio.paused) {
                 moodAudio.play();
-                playPauseBtn.innerHTML = '<i class=\"fas fa-pause\"></i>';
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
                 sessionStorage.setItem('wasPlaying', 'true');
             } else {
                 moodAudio.pause();
-                playPauseBtn.innerHTML = '<i class=\"fas fa-play\"></i>';
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                 sessionStorage.setItem('wasPlaying', 'false');
             }
         }
@@ -1420,11 +1425,11 @@
             const volumeBtn = document.getElementById('volumeBtn');
             
             if (moodAudio.volume === 0) {
-                volumeBtn.innerHTML = '<i class=\"fas fa-volume-mute\"></i>';
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
             } else if (moodAudio.volume < 0.5) {
-                volumeBtn.innerHTML = '<i class=\"fas fa-volume-down\"></i>';
+                volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
             } else {
-                volumeBtn.innerHTML = '<i class=\"fas fa-volume-up\"></i>';
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
             }
         }
 
