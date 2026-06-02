@@ -286,13 +286,15 @@
                 trackCover.src = moodImages[savedMood] || '';
                 moodAudioSource.src = fileSrc;
                 moodAudio.src = fileSrc;
+                moodAudio.load();
                 
                 if (wasPlaying) {
-                    moodAudio.load();
                     setTimeout(() => {
                         moodAudio.play().catch(e => console.log('Autoplay blocked'));
                         playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
                     }, 100);
+                } else {
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                 }
             }
             

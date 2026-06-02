@@ -981,10 +981,15 @@
 
             currentMood = info.name;
             currentMoodIndex = moods.indexOf(info.name);
+            sessionStorage.setItem('currentMood', info.name);
+            sessionStorage.setItem('currentTrack', info.file);
+            sessionStorage.setItem('playerActive', 'true');
 
             moodAudio.play().then(() => {
+                sessionStorage.setItem('wasPlaying', 'true');
                 if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
             }).catch(() => {
+                sessionStorage.setItem('wasPlaying', 'false');
                 if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
             });
         }
@@ -1337,7 +1342,9 @@
             playerPanel.classList.add('show');
             
             // Auto play
-            moodAudio.play().catch(() => {
+            moodAudio.play().then(() => {
+                sessionStorage.setItem('wasPlaying', 'true');
+            }).catch(() => {
                 // Ignore autoplay interruption; user can manually resume playback.
             });
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
