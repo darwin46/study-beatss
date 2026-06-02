@@ -85,6 +85,7 @@
             display: grid;
             gap: 24px;
             margin-left: 0;
+            padding-bottom: 120px;
         }
 
         .sidebar {
@@ -351,12 +352,19 @@
             display: none;
             align-items: center;
             padding: 0 24px;
-            z-index: 1000;
+            z-index: 99999;
+            pointer-events: auto;
             border-top: 1px solid rgba(102, 126, 234, 0.15);
         }
 
         .audio-player-panel.show {
             display: flex;
+        }
+
+        .audio-player-panel *,
+        .audio-player-panel button,
+        .audio-player-panel input {
+            pointer-events: auto;
         }
 
         .player-controls {
