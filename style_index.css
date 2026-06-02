@@ -1,0 +1,781 @@
+/*style.css — Study Beats*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+
+body::before {
+    content: '';
+    position: fixed;
+    inset:0 ;
+    z-index: -1;
+    background: #0d0d1a;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(102,63,234,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 80% 10%, rgba(118,75,162,0.30) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 50% 80%, rgba(30,80,200,0.25)  0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 90% 70%, rgba(180,60,160,0.20) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(60,120,220,0.20) 0%, transparent 50%);
+    filter: blur(40px);
+    animation: meshMove 12s ease-in-out infinite alternate;
+}
+ 
+@keyframes meshMove {
+    0% {
+        background:
+            radial-gradient(ellipse 80% 60% at 20% 20%, rgba(102,63,234,0.35) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 70% at 80% 10%, rgba(118,75,162,0.30) 0%, transparent 55%),
+            radial-gradient(ellipse 70% 50% at 50% 80%, rgba(30,80,200,0.25)  0%, transparent 60%),
+            radial-gradient(ellipse 50% 60% at 90% 70%, rgba(180,60,160,0.20) 0%, transparent 55%),
+            radial-gradient(ellipse 40% 40% at 10% 80%, rgba(60,120,220,0.20) 0%, transparent 50%);
+    }
+    33% {
+        background:
+            radial-gradient(ellipse 70% 70% at 60% 10%, rgba(102,63,234,0.38) 0%, transparent 60%),
+            radial-gradient(ellipse 80% 50% at 10% 50%, rgba(118,75,162,0.28) 0%, transparent 55%),
+            radial-gradient(ellipse 60% 60% at 80% 60%, rgba(30,80,200,0.30)  0%, transparent 60%),
+            radial-gradient(ellipse 55% 50% at 30% 90%, rgba(180,60,160,0.22) 0%, transparent 55%),
+            radial-gradient(ellipse 45% 55% at 90% 20%, rgba(60,120,220,0.18) 0%, transparent 50%);
+    }
+    66% {
+        background:
+            radial-gradient(ellipse 75% 55% at 80% 40%, rgba(102,63,234,0.32) 0%, transparent 60%),
+            radial-gradient(ellipse 65% 65% at 20% 80%, rgba(118,75,162,0.32) 0%, transparent 55%),
+            radial-gradient(ellipse 80% 45% at 40% 20%, rgba(30,80,200,0.28)  0%, transparent 60%),
+            radial-gradient(ellipse 45% 65% at 70% 90%, rgba(180,60,160,0.24) 0%, transparent 55%),
+            radial-gradient(ellipse 50% 45% at  5% 40%, rgba(60,120,220,0.22) 0%, transparent 50%);
+    }
+    100% {
+        background:
+            radial-gradient(ellipse 85% 50% at 30% 60%, rgba(102,63,234,0.30) 0%, transparent 60%),
+            radial-gradient(ellipse 55% 75% at 90% 40%, rgba(118,75,162,0.34) 0%, transparent 55%),
+            radial-gradient(ellipse 65% 55% at 60% 10%, rgba(30,80,200,0.22)  0%, transparent 60%),
+            radial-gradient(ellipse 40% 70% at 15% 60%, rgba(180,60,160,0.26) 0%, transparent 55%),
+            radial-gradient(ellipse 55% 40% at 75% 85%, rgba(60,120,220,0.20) 0%, transparent 50%);
+    }
+}
+ 
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 4px;
+}
+
+/* ── HEADER ── */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(18, 18, 30, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 24px;
+}
+
+/* ── LOGO + DROPDOWN WRAPPER ── */
+.logo-dropdown {
+    position: relative;
+    margin-right: 16px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    padding: 6px 0;
+    transition: opacity 0.2s;
+}
+
+.logo:hover { opacity: 0.85; }
+
+.chevron-icon {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.chevron-icon.open {
+    transform: rotate(180deg);
+}
+
+/* ── DROPDOWN MENU ── */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    width: 280px;
+    background: rgba(18, 18, 40, 0.98);
+    border: 1px solid rgba(102, 126, 234, 0.25);
+    border-radius: 14px;
+    padding: 10px 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+.dropdown-menu.open {
+    display: block;
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-label {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 6px 12px 10px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e0dcf5;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active-mood {
+    background: rgba(102, 126, 234, 0.18);
+}
+
+.dropdown-item.active-mood {
+    border-left: 3px solid #667eea;
+    padding-left: 9px;
+}
+
+.dropdown-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(45deg, #667eea20, #764ba220);
+    border: 1px solid rgba(102,126,234,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #667eea;
+    flex-shrink: 0;
+}
+
+.dropdown-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dropdown-text strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.dropdown-text small {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+}
+
+/* ── NAV ── */
+.nav {
+    display: flex;
+    gap: 24px;
+    margin-right: auto;
+}
+
+.nav a {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav a:hover, .nav a.active { color: #fff; }
+
+/* ── CTA BUTTON ── */
+.cta-button {
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(102,126,234,0.4);
+}
+
+/* ── HERO ── */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+    position: relative;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 24px;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    max-width: 600px;
+}
+
+/* ── CATEGORIES ── */
+.categories {
+    padding: 40px 24px 120px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.category-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    background: rgba(102,126,234,0.15);
+    border-color: rgba(102,126,234,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.category-card.selected {
+    background: rgba(102,126,234,0.2);
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102,126,234,0.3);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.category-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.category-card p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+}
+
+/* ── PLAYER ── */
+.player {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
+    background: rgba(18,18,30,0.97);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 1000;
+    border-top: 1px solid rgba(102,126,234,0.15);
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 180px;
+}
+
+.track-cover {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    flex-shrink: 0;
+}
+
+.track-details h4 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
+
+.track-details p {
+    color: #b3b3b3;
+    font-size: 0.82rem;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.control-btn:hover { background: rgba(255,255,255,0.1); }
+
+.play-pause {
+    font-size: 1.8rem;
+    color: #667eea;
+}
+
+.progress-container {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    margin: 0 16px;
+    cursor: pointer;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+    width: 40%;
+    transition: width 0.1s;
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.5rem; }
+    .nav { display: none; }
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .dropdown-menu { width: 260px; }
+}
+
+@media (max-width: 480px) {
+    .category-grid { grid-template-columns: 1fr; }
+}
+
+/* ===========================
+   TAMBAHAN — Mega Dropdown & Header Update
+   =========================== */
+
+/* ── HEADER LAYOUT UPDATE ── */
+.header {
+    gap: 0;
+    justify-content: space-between;
+}
+
+/* ── SEARCH BAR ── */
+.header-search {
+    position: relative;
+    flex: 1;
+    max-width: 360px;
+    margin: 0 24px;
+}
+
+.header-search input {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 9px 16px 9px 38px;
+    color: #fff;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+    outline: none;
+    transition: all 0.25s;
+}
+
+.header-search input::placeholder { color: rgba(255,255,255,0.35); }
+
+.header-search input:focus {
+    border-color: rgba(102,126,234,0.5);
+    background: rgba(102,126,234,0.1);
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.12);
+}
+
+.search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.35);
+    font-size: 13px;
+    pointer-events: none;
+}
+
+/* ── HEADER RIGHT ── */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* ── MOOD BADGE HEADER ── */
+.mood-badge-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(102,126,234,0.15);
+    border: 1px solid rgba(102,126,234,0.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #a5b4ff;
+    white-space: nowrap;
+}
+
+.pulse-dot {
+    font-size: 8px;
+    color: #667eea;
+    animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ── MEGA DROPDOWN ── */
+.dropdown-menu {
+    width: 340px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.dropdown-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.3px;
+    text-transform: none;
+    padding: 0;
+}
+
+.dropdown-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+}
+
+/* ── DROPDOWN GRID (vertikal list) ── */
+.dropdown-grid {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 2px;
+}
+
+.dropdown-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e0dcf5;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.dropdown-card:hover {
+    background: rgba(102,126,234,0.15);
+}
+
+.dropdown-card.active-mood {
+    background: rgba(102,126,234,0.2);
+    border-left: 3px solid #667eea;
+    padding-left: 9px;
+}
+
+/* Ikon warna per kategori */
+.dc-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.dc-icon.lofi      { background: rgba(167,139,250,0.2); color: #a78bfa; }
+.dc-icon.focus     { background: rgba(96,165,250,0.2);  color: #60a5fa; }
+.dc-icon.classical { background: rgba(251,191,36,0.2);  color: #fbbf24; }
+.dc-icon.ambient   { background: rgba(52,211,153,0.2);  color: #34d399; }
+.dc-icon.chillhop  { background: rgba(251,113,133,0.2); color: #fb7185; }
+
+.dc-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dc-text strong { font-size: 13px; font-weight: 600; color: #fff; }
+.dc-text small  { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.dc-arrow {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    transition: all 0.2s;
+}
+
+.dropdown-card:hover .dc-arrow {
+    color: rgba(255,255,255,0.6);
+    transform: translateX(3px);
+}
+
+/* ── DROPDOWN FOOTER ── */
+.dropdown-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    background: rgba(0,0,0,0.2);
+}
+
+.dropdown-footer i { color: #667eea; font-size: 10px; }
+
+/* ── CATEGORY ICON COLORS ── */
+.category-icon.lofi-c      { color: #a78bfa; }
+.category-icon.focus-c     { color: #60a5fa; }
+.category-icon.classical-c { color: #fbbf24; }
+.category-icon.ambient-c   { color: #34d399; }
+.category-icon.chillhop-c  { color: #fb7185; }
+
+/* ── CATEGORY CARD SELECTED STATE PER MOOD ── */
+.category-card.selected { border-color: #667eea; background: rgba(102,126,234,0.18); }
+
+/* ── REMOVE OLD NAV (tersembunyi karena sudah di dropdown) ── */
+.nav { display: none; }
+
+@media (max-width: 768px) {
+    .header-search { display: none; }
+    .mood-badge-header { display: none !important; }
+    .dropdown-menu { width: 280px; }
+}
+
+/* ===========================
+   BACKGROUND IMAGE — Category Cards
+   =========================== */
+
+/* Base card jadi relative agar overlay bisa absolute */
+.category-card {
+    position: relative;
+    overflow: hidden;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    padding: 0 !important;
+}
+
+/* Overlay gelap di atas foto supaya teks tetap terbaca */
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 30, 0.35) 0%,
+        rgba(10, 10, 30, 0.75) 60%,
+        rgba(10, 10, 30, 0.92) 100%
+    );
+    border-radius: 16px;
+    transition: background 0.3s;
+    z-index: 1;
+}
+
+.category-card:hover .card-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 30, 0.2) 0%,
+        rgba(10, 10, 30, 0.65) 60%,
+        rgba(10, 10, 30, 0.88) 100%
+    );
+}
+
+/* Konten (ikon, judul, deskripsi) di atas overlay */
+.card-content {
+    position: relative;
+    z-index: 2;
+    padding: 32px 24px;
+    height: 100%;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.card-content .category-icon {
+    margin-bottom: 12px;
+}
+
+.card-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.card-content p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+}
+
+/* ── FOTO PER KATEGORI — muncul saat hover ── */
+
+/* Semua card punya pseudo-element yang menyimpan foto */
+/* Defaultnya opacity 0 (tidak terlihat), muncul saat hover */
+
+.category-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Layer foto — tersembunyi di belakang */
+.category-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+/* Saat hover: foto muncul smooth */
+.category-card:hover::before {
+    opacity: 1;
+}
+
+/* Overlay gelap muncul bersamaan dengan foto */
+.card-overlay {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.category-card:hover .card-overlay {
+    opacity: 1;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 30, 0.25) 0%,
+        rgba(10, 10, 30, 0.70) 55%,
+        rgba(10, 10, 30, 0.92) 100%
+    );
+}
+
+/* Foto per kategori dipasang di ::before */
+.lofi-card::before      { background-image: url('lofi img.jpg'); }
+.focus-card::before     { background-image: url('deep focus img.jpeg'); }
+.classical-card::before { background-image: url('classical img.jpeg'); }
+.ambient-card::before   { background-image: url('ambient.jpeg'); }
+.chillhop-card::before  { background-image: url('chillhop img.jpg'); }
+
+/* Sedikit angkat card saat hover */
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}

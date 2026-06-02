@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Web Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: radial-gradient(circle at top, rgba(146, 97, 255, 0.18), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(49, 64, 182, 0.28), transparent 20%),
+                        linear-gradient(160deg, #0d0f23 0%, #121a37 40%, #180f38 100%);
+        }
+        .login-card {
+            width: min(420px, 100%);
+            background: rgba(10, 14, 38, 0.92);
+            border: 1px solid rgba(135, 94, 255, 0.16);
+            border-radius: 28px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            padding: 36px 32px;
+            color: #f6f6ff;
+        }
+        .login-brand { display: flex; flex-direction: column; gap: 10px; text-align: center; margin-bottom: 28px; }
+        .login-brand h1 { font-size: 2rem; letter-spacing: 0.04em; margin-bottom: 0; color: #fff; }
+        .login-brand p { color: rgba(255, 255, 255, 0.72); line-height: 1.65; }
+        .login-form { display: grid; gap: 16px; }
+        .login-form label { font-size: 0.88rem; color: rgba(255, 255, 255, 0.75); }
+        .login-form input {
+            width: 100%; padding: 14px 16px; border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(15, 19, 39, 0.86); color: #fff; outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .login-form input:focus { border-color: #7f63ff; box-shadow: 0 0 0 4px rgba(127, 99, 255, 0.12); }
+        .submit-btn {
+            width: 100%; padding: 14px 16px; border: none; border-radius: 16px;
+            background: linear-gradient(135deg, #8257ff, #6846f4);
+            color: #fff; font-weight: 700; cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .submit-btn:hover { opacity: 0.96; transform: translateY(-1px); }
+        .login-note { margin-top: 18px; text-align: center; color: rgba(255, 255, 255, 0.72); font-size: 0.95rem; }
+        .login-note a { color: #b8a0ff; text-decoration: none; }
+        .login-note a:hover { text-decoration: underline; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #c7d2fe; text-decoration: none; font-weight: 600; margin-bottom: 16px; }
+        .back-link:hover { color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <div class="login-brand">
+            <h1><i class="fas fa-music"></i> Web Music</h1>
+            <p>Masuk untuk mulai mendengarkan musik ambient dengan tema ungu dan biru gelap.</p>
+        </div>
+        <form class="login-form" id="loginForm">
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="email@domain.com" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Masukkan password" required>
+            </div>
+            <button type="submit" class="submit-btn">Masuk</button>
+        </form>
+        <p class="login-note">Belum punya akun? <a href="daftar.html">Daftar sekarang</a></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAn4VQ7GB2SCk5ibZZHhbUKgGvg-WoN_4",
+            authDomain: "studybeats-28772.firebaseapp.com",
+            projectId: "studybeats-28772",
+            storageBucket: "studybeats-28772.firebasestorage.app",
+            messagingSenderId: "647347128116",
+            appId: "1:647347128116:web:d49ce1509444641774c761"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const form = document.getElementById('loginForm');
+
+        await setPersistence(auth, browserLocalPersistence);
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                alert('Silakan isi email dan password terlebih dahulu.');
+                return;
+            }
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                localStorage.setItem('loggedInUser', JSON.stringify({
+                    email: user.email,
+                    name: user.displayName || ''
+                }));
+                alert('Berhasil login!');
+                window.location.href = 'home.html';
+            } catch (error) {
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    alert('Email atau password salah.');
+                } else {
+                    alert('Gagal login: ' + error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
