@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Beats - Musik untuk Belajar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style_index.css">
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+
+        <!-- Logo + Dropdown -->
+        <div class="logo-dropdown">
+            <div class="logo" id="logoBtn">
+                <i class="fas fa-music"></i> Studying Class
+                <i class="fas fa-chevron-down chevron-icon" id="chevronIcon"></i>
+            </div>
+
+            <!-- Mega dropdown dengan kategori visual -->
+            <div class="dropdown-menu" id="dropdownMenu">
+                <div class="dropdown-header">
+                    <span class="dropdown-label">Pilih Mood Belajarmu</span>
+                    <span class="dropdown-sub">5 kategori tersedia</span>
+                </div>
+
+                <div class="dropdown-grid">
+
+                    <a href="login.html" class="dropdown-card auth-link" onclick="showAuthPrompt(event, 'login')">
+                        <div class="dc-icon lofi"><i class="fas fa-headphones"></i></div>
+                        <div class="dc-text">
+                            <strong>Lo-Fi</strong>
+                            <small>Beats santai untuk belajar panjang</small>
+                        </div>
+                        <i class="fas fa-chevron-right dc-arrow"></i>
+                    </a>
+
+                    <a href="login.html" class="dropdown-card auth-link" onclick="showAuthPrompt(event, 'login')">
+                        <div class="dc-icon focus"><i class="fas fa-brain"></i></div>
+                        <div class="dc-text">
+                            <strong>Deep Focus</strong>
+                            <small>Instrumental tanpa distraksi</small>
+                        </div>
+                        <i class="fas fa-chevron-right dc-arrow"></i>
+                    </a>
+
+                    <a href="login.html" class="dropdown-card auth-link" onclick="showAuthPrompt(event, 'login')">
+                        <div class="dc-icon classical"><i class="fas fa-music"></i></div>
+                        <div class="dc-text">
+                            <strong>Classical</strong>
+                            <small>Musik klasik untuk produktivitas</small>
+                        </div>
+                        <i class="fas fa-chevron-right dc-arrow"></i>
+                    </a>
+
+                    <a href="login.html" class="dropdown-card auth-link" onclick="showAuthPrompt(event, 'login')">
+                        <div class="dc-icon ambient"><i class="fas fa-mountain"></i></div>
+                        <div class="dc-text">
+                            <strong>Ambient</strong>
+                            <small>Suara alam untuk relaksasi</small>
+                        </div>
+                        <i class="fas fa-chevron-right dc-arrow"></i>
+                    </a>
+
+                    <a href="login.html" class="dropdown-card auth-link" onclick="showAuthPrompt(event, 'login')">
+                        <div class="dc-icon chillhop"><i class="fas fa-record-vinyl"></i></div>
+                        <div class="dc-text">
+                            <strong>Chillhop</strong>
+                            <small>Hip-hop santai penuh vibes</small>
+                        </div>
+                        <i class="fas fa-chevron-right dc-arrow"></i>
+                    </a>
+
+                </div>
+
+                <!-- Footer dropdown: mood aktif -->
+                <div class="dropdown-footer" id="dropdownFooter">
+                    <i class="fas fa-circle-dot"></i>
+                    <span id="activeMoodLabel">Belum ada mood dipilih</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search bar di tengah -->
+        <div class="header-search">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Cari mood, genre, atau lagu...">
+        </div>
+
+        <!-- Kanan: mood badge + daftar + login -->
+        <div class="header-right">
+            <div class="mood-badge-header" id="moodBadgeHeader" style="display:none">
+                <i class="fas fa-circle pulse-dot"></i>
+                <span id="moodBadgeText">Lo-Fi</span>
+            </div>
+            <a class="secondary-button auth-link" href="daftar.html" onclick="showAuthPrompt(event, 'register')">
+                <i class="fas fa-user-plus"></i> Daftar
+            </a>
+            <a class="cta-button auth-link" style="font-size: 0.85rem; padding: 8px 20px;" href="login.html" onclick="showAuthPrompt(event, 'login')">
+                <i class="fas fa-crown"></i> Login
+            </a>
+        </div>
+    </header>
+    <div class="auth-banner" id="authBanner">
+        <div class="auth-banner-content">
+            <button class="auth-banner-close" id="authBannerClose"><i class="fas fa-times"></i></button>
+            <div class="auth-modal-text">
+                <h3 id="authBannerTitle">Daftar gratis sekarang</h3>
+                <p id="authBannerMessage">Buat akun gratis untuk menyimpan lagu favorit dan melanjutkan sesi kapan saja.</p>
+            </div>
+            <a class="cta-button auth-main-btn" id="authMainBtn" href="daftar.html">Daftar Gratis</a>
+            <div class="auth-switch">
+                <span id="authSwitchText">Sudah punya akun?</span>
+                <a id="authSwitchLink" class="auth-link-simple" href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Studying Class</h1>
+            <p>Musik slow tempo untuk fokus belajar, bekerja, dan relaksasi.<br>Pilih mood kamu dan mulai sesi produktif hari ini.</p>
+            <a class="cta-button" href="#categories">
+                <i class="fas fa-sliders"></i> Pilih Mood
+            </a>
+        </div>
+    </section>
+
+    <!-- ── CATEGORIES (tetap ada di halaman sebagai visual referensi) ── -->
+    <section id="categories" class="categories">
+        <h2 class="section-title">Pilih Mood Belajarmu</h2>
+        <div class="category-grid">
+
+            <div class="category-card lofi-card" id="card-Lo-Fi" onclick="showAuthPrompt(event, 'login')">
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="category-icon lofi-c"><i class="fas fa-headphones"></i></div>
+                    <h3>Lo-Fi</h3>
+                    <p>Lo-fi beats yang cozy untuk sesi belajar panjang</p>
+                </div>
+            </div>
+
+            <div class="category-card focus-card" id="card-Deep-Focus" onclick="showAuthPrompt(event, 'login')">
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="category-icon focus-c"><i class="fas fa-brain"></i></div>
+                    <h3>Deep Focus</h3>
+                    <p>Musik instrumental tanpa distraksi untuk konsentrasi maksimal</p>
+                </div>
+            </div>
+
+            <div class="category-card classical-card" id="card-Classical" onclick="showAuthPrompt(event, 'login')">
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="category-icon classical-c"><i class="fas fa-music"></i></div>
+                    <h3>Classical</h3>
+                    <p>Musik klasik timeless untuk produktivitas tinggi</p>
+                </div>
+            </div>
+
+            <div class="category-card ambient-card" id="card-Ambient" onclick="showAuthPrompt(event, 'login')">
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="category-icon ambient-c"><i class="fas fa-mountain"></i></div>
+                    <h3>Ambient</h3>
+                    <p>Suara alam dan ambient untuk relaksasi mendalam</p>
+                </div>
+            </div>
+
+            <div class="category-card chillhop-card" id="card-Chillhop" onclick="showAuthPrompt(event, 'login')">
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="category-icon chillhop-c"><i class="fas fa-record-vinyl"></i></div>
+                    <h3>Chillhop</h3>
+                    <p>Hip-hop santai penuh vibes untuk mood yang ringan</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── PLAYER ── -->
+    <div class="player">
+        <div class="player-controls">
+            <div class="track-info">
+                <div class="track-cover" id="trackCover"></div>
+                <div class="track-details">
+                    <h4 id="playerTrackName">Pilih mood untuk mulai</h4>
+                    <p id="playerTrackMood">— Studying Class</p>
+                </div>
+            </div>
+            <button class="control-btn"><i class="fas fa-step-backward"></i></button>
+            <button class="control-btn play-pause"><i class="fas fa-pause"></i></button>
+            <button class="control-btn"><i class="fas fa-step-forward"></i></button>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+        <div class="volume-container">
+            <button class="control-btn"><i class="fas fa-volume-up"></i></button>
+            <div class="progress-container" style="width:100px">
+                <div class="progress-bar" style="width:70%"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script_index.js"></script>
+</body>
+</html>
