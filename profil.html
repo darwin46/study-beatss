@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Study Beats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style_home.css">
+    <style>
+        body {
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .profile-page {
+            min-height: 100vh;
+            padding: 100px 24px 60px;
+            color: #fff;
+        }
+
+        .profile-shell {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+        }
+
+        .profile-hero {
+            background: rgba(12, 14, 32, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 28px;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+        }
+
+        .profile-hero-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 1.7rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .profile-hero h1 {
+            margin: 0 0 6px;
+            font-size: 1.6rem;
+        }
+
+        .profile-hero p {
+            margin: 0;
+            color: rgba(255,255,255,0.72);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .profile-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .profile-btn.primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .profile-card {
+            background: rgba(12, 14, 32, 0.9);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+        }
+
+        .profile-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .profile-card-header h2 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .profile-card-header span {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.9rem;
+        }
+
+        .profile-list {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .profile-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+            color: inherit;
+        }
+
+        .profile-list-item:hover,
+        .profile-list-item:focus-visible {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .profile-list-item strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .profile-list-item small {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .profile-list-item .icon-pill {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(102,126,234,0.18);
+            color: #8b9dff;
+            flex-shrink: 0;
+        }
+
+        .empty-state {
+            padding: 18px;
+            border-radius: 16px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.04);
+            border: 1px dashed rgba(255,255,255,0.12);
+        }
+
+        .mini-player {
+            position: sticky;
+            bottom: 16px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(12, 14, 32, 0.95);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.28);
+        }
+
+        .mini-player-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .mini-player-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .mini-player-title {
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-player-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.68);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 820px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-page">
+        <div class="profile-shell">
+            <section class="profile-hero">
+                <div class="profile-hero-left">
+                    <div class="profile-avatar"><i class="fas fa-user"></i></div>
+                    <div>
+                        <h1 id="profileName">Profil Kamu</h1>
+                        <p id="profileEmail">Belum ada data pengguna</p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <a href="home.html" class="profile-btn primary"><i class="fas fa-home"></i> Ke Home</a>
+                    <a href="search.html" class="profile-btn"><i class="fas fa-search"></i> Cari Lagu</a>
+                </div>
+            </section>
+
+            <section class="profile-grid">
+                <article class="profile-card">
+                    <div class="profile-card-header">
+                        <div>
+                            <h2><i class="fas fa-heart"></i> Lagu Favorite</h2>
+                            <span>Lagu yang paling sering kamu sukai</span>
+                        </div>
+                    </div>
+                    <ul class="profile-list" id="favoriteList"></ul>
+                </article>
+
+                <article class="profile-card">
+                    <div class="profile-card-header">
+                        <div>
+                            <h2><i class="fas fa-history"></i> Histori Putar</h2>
+                            <span>Riwayat lagu yang baru saja diputar</span>
+                        </div>
+<<<<<<< HEAD
+                        <button id="clearHistoryBtn" class="profile-btn" type="button" style="padding: 8px 12px; font-size: 0.85rem;">Hapus Semua</button>
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+                    </div>
+                    <ul class="profile-list" id="historyList"></ul>
+                </article>
+            </section>
+
+            <div class="mini-player" id="miniPlayer">
+                <div class="mini-player-info">
+                    <div class="mini-player-icon"><i class="fas fa-music"></i></div>
+                    <div>
+                        <div class="mini-player-title" id="miniPlayerTitle">Sedang diputar</div>
+                        <div class="mini-player-subtitle" id="miniPlayerSubtitle">Menunggu lagu...</div>
+                    </div>
+                </div>
+                <div style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Lanjut diputar</div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="profileAudio" preload="auto"></audio>
+
+    <script>
+        const user = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+        const favoriteList = document.getElementById('favoriteList');
+        const historyList = document.getElementById('historyList');
+
+        const profileName = document.getElementById('profileName');
+        const profileEmail = document.getElementById('profileEmail');
+
+        if (profileName) {
+            profileName.textContent = user?.name ? user.name : 'Profil Kamu';
+        }
+
+        if (profileEmail) {
+            profileEmail.textContent = user?.email ? user.email : 'Belum ada data pengguna';
+        }
+
+        function getFavorites() {
+            try {
+                return JSON.parse(localStorage.getItem('studyBeatsFavorites') || '[]');
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function formatHistoryTime(value) {
+            if (!value) return 'Baru diputar';
+            try {
+                const date = new Date(value);
+                return date.toLocaleString('id-ID', {
+                    day: '2-digit',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (error) {
+                return 'Baru diputar';
+            }
+        }
+
+        function getHistory() {
+            try {
+                return JSON.parse(localStorage.getItem('studyBeatsPlaybackHistory') || '[]');
+            } catch (error) {
+                return [];
+            }
+        }
+
+<<<<<<< HEAD
+        function saveHistory(historyEntries) {
+            localStorage.setItem('studyBeatsPlaybackHistory', JSON.stringify(historyEntries));
+        }
+
+        function deleteHistoryEntry(entryTime) {
+            const history = getHistory().filter(item => (item.time || '') !== entryTime);
+            saveHistory(history);
+            renderHistory();
+        }
+
+        function clearHistory() {
+            saveHistory([]);
+            renderHistory();
+        }
+
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+        const fileUrlMap = {
+            'lofi.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369770/lofi_p1gtxq.mp3',
+            'deep focus.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369785/deep_focus_kzjznv.mp3',
+            'classical.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780370303/Classical_Music_for_Studying_Working_Focusing_Concentrating_1_Hour_u3rnc9.mp3',
+            'ambient.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369894/ambient_qjeavr.mp3',
+            'chillhop.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369833/chillhop_vzsmxv.mp3'
+        };
+
+        function getCurrentTrack() {
+            const storedMood = sessionStorage.getItem('currentMood') || '';
+            const storedTrack = sessionStorage.getItem('currentTrack') || '';
+            const history = getHistory();
+
+            if (storedMood && storedTrack) {
+                return { mood: storedMood, track: storedTrack };
+            }
+
+            if (history.length) {
+                const latest = history[0];
+                return { mood: latest.mood || '', track: latest.file || latest.title || '' };
+            }
+
+            return { mood: 'Lo-Fi', track: 'lofi.mp3' };
+        }
+
+        function initMiniPlayer() {
+            const audio = document.getElementById('profileAudio');
+            const title = document.getElementById('miniPlayerTitle');
+            const subtitle = document.getElementById('miniPlayerSubtitle');
+            const currentTrack = getCurrentTrack();
+            const trackFile = currentTrack.track || 'lofi.mp3';
+            const mood = currentTrack.mood || 'Lo-Fi';
+            const fileSrc = fileUrlMap[trackFile] || `./${trackFile}`;
+<<<<<<< HEAD
+            const wasPlaying = sessionStorage.getItem('wasPlaying') === 'true';
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+
+            title.textContent = mood;
+            subtitle.textContent = trackFile;
+
+            if (audio) {
+                audio.src = fileSrc;
+                audio.load();
+
+                const savedTime = parseFloat(sessionStorage.getItem('currentTime') || '0');
+                const restoreTime = () => {
+                    if (!isNaN(savedTime) && savedTime > 0) {
+                        audio.currentTime = Math.min(savedTime, audio.duration || savedTime);
+                    }
+                };
+
+                audio.addEventListener('loadedmetadata', restoreTime, { once: true });
+<<<<<<< HEAD
+                audio.addEventListener('timeupdate', () => {
+                    sessionStorage.setItem('currentTime', audio.currentTime.toString());
+                });
+                audio.addEventListener('play', () => {
+                    sessionStorage.setItem('playerActive', 'true');
+                    sessionStorage.setItem('currentMood', mood);
+                    sessionStorage.setItem('currentTrack', trackFile);
+                    sessionStorage.setItem('wasPlaying', 'true');
+                });
+                audio.addEventListener('pause', () => {
+                    sessionStorage.setItem('currentTime', audio.currentTime.toString());
+                    sessionStorage.setItem('wasPlaying', 'false');
+                });
+
+                restoreTime();
+                audio.pause();
+
+                const tryPlay = () => {
+                    if (!wasPlaying) {
+                        audio.pause();
+                        subtitle.textContent = `${trackFile} • tekan play untuk melanjutkan`;
+                        return;
+                    }
+
+=======
+                restoreTime();
+
+                const tryPlay = () => {
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+                    audio.play().catch(() => {
+                        subtitle.textContent = `${trackFile} • autoplay diblokir browser`;
+                    });
+                };
+
+                document.addEventListener('pointerdown', tryPlay, { once: true });
+<<<<<<< HEAD
+                if (wasPlaying) {
+                    tryPlay();
+                }
+=======
+                tryPlay();
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+            }
+        }
+
+        function openProfileItem(mood) {
+            const targetMood = (mood || '').trim();
+            if (!targetMood) return;
+            window.location.href = `search.html?mood=${encodeURIComponent(targetMood)}`;
+        }
+
+        function attachListEvents(container) {
+            container?.querySelectorAll('.profile-list-item').forEach(item => {
+                item.addEventListener('click', () => openProfileItem(item.dataset.mood));
+                item.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openProfileItem(item.dataset.mood);
+                    }
+                });
+            });
+        }
+
+        function renderFavorites() {
+            const favorites = getFavorites();
+            if (!favorites.length) {
+                favoriteList.innerHTML = '<li class="empty-state">Belum ada lagu favorite. Coba tambahkan dari halaman pencarian.</li>';
+                return;
+            }
+
+            favoriteList.innerHTML = favorites.map(item => `
+                <li class="profile-list-item" data-mood="${item.mood || ''}" tabindex="0" role="button">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="icon-pill"><i class="fas fa-heart"></i></div>
+                        <div>
+                            <strong>${item.title || item.file}</strong>
+                            <small>${item.mood || 'Mood tidak diketahui'}</small>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: rgba(255,255,255,0.45);"></i>
+                </li>
+            `).join('');
+
+            attachListEvents(favoriteList);
+        }
+
+        function renderHistory() {
+            const history = getHistory();
+            if (!history.length) {
+                historyList.innerHTML = '<li class="empty-state">Belum ada histori pemutaran. Mulai putar lagu untuk melihat riwayat di sini.</li>';
+                return;
+            }
+
+            historyList.innerHTML = history.map(item => `
+                <li class="profile-list-item" data-mood="${item.mood || ''}" tabindex="0" role="button">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="icon-pill"><i class="fas fa-music"></i></div>
+                        <div>
+                            <strong>${item.title || item.file}</strong>
+                            <small>${item.mood} • ${formatHistoryTime(item.time)}</small>
+                        </div>
+                    </div>
+<<<<<<< HEAD
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-play" style="color: rgba(255,255,255,0.45);"></i>
+                        <button type="button" class="history-delete-btn" data-time="${item.time || ''}" aria-label="Hapus histori ini" style="border:none; background: transparent; color: #fff; cursor:pointer; padding: 4px;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+=======
+                    <i class="fas fa-play" style="color: rgba(255,255,255,0.45);"></i>
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+                </li>
+            `).join('');
+
+            attachListEvents(historyList);
+<<<<<<< HEAD
+
+            historyList.querySelectorAll('.history-delete-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    deleteHistoryEntry(button.dataset.time);
+                });
+            });
+        }
+
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        clearHistoryBtn?.addEventListener('click', clearHistory);
+
+=======
+        }
+
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+        renderFavorites();
+        renderHistory();
+        initMiniPlayer();
+    </script>
+</body>
+</html>

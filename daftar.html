@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun - Web Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: radial-gradient(circle at top, rgba(146, 97, 255, 0.18), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(49, 64, 182, 0.28), transparent 20%),
+                        linear-gradient(160deg, #0d0f23 0%, #121a37 40%, #180f38 100%);
+        }
+        .login-card {
+            width: min(420px, 100%);
+            background: rgba(10, 14, 38, 0.92);
+            border: 1px solid rgba(135, 94, 255, 0.16);
+            border-radius: 28px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            padding: 36px 32px;
+            color: #f6f6ff;
+        }
+        .login-brand { display: flex; flex-direction: column; gap: 10px; text-align: center; margin-bottom: 28px; }
+        .login-brand h1 { font-size: 2rem; letter-spacing: 0.04em; margin-bottom: 0; color: #fff; }
+        .login-brand p { color: rgba(255, 255, 255, 0.72); line-height: 1.65; }
+        .login-form { display: grid; gap: 16px; }
+        .login-form label { font-size: 0.88rem; color: rgba(255, 255, 255, 0.75); }
+        .login-form input {
+            width: 100%; padding: 14px 16px; border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(15, 19, 39, 0.86); color: #fff; outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .login-form input:focus { border-color: #7f63ff; box-shadow: 0 0 0 4px rgba(127, 99, 255, 0.12); }
+        .submit-btn {
+            width: 100%; padding: 14px 16px; border: none; border-radius: 16px;
+            background: linear-gradient(135deg, #8257ff, #6846f4);
+            color: #fff; font-weight: 700; cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .submit-btn:hover { opacity: 0.96; transform: translateY(-1px); }
+        .login-note { margin-top: 18px; text-align: center; color: rgba(255, 255, 255, 0.72); font-size: 0.95rem; }
+        .login-note a { color: #b8a0ff; text-decoration: none; }
+        .login-note a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<<<<<<< HEAD
+    <!-- COMPOSITION: card utama pendaftaran -->
+    <div class="login-card">
+        <!-- COMPOSITION: branding / heading -->
+=======
+    <div class="login-card">
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+        <div class="login-brand">
+            <h1><i class="fas fa-music"></i> Web Music</h1>
+            <p>Buat akun baru untuk mulai mendengarkan musik ambient dengan tema ungu dan biru gelap.</p>
+        </div>
+<<<<<<< HEAD
+        <!-- COMPOSITION: form daftar akun -->
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+        <form class="login-form" id="daftarForm">
+            <div>
+                <label for="name">Nama</label>
+                <input id="name" type="text" placeholder="Nama lengkap" required>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="email@domain.com" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Masukkan password" required>
+            </div>
+            <div>
+                <label for="confirm-password">Konfirmasi Password</label>
+                <input id="confirm-password" type="password" placeholder="Konfirmasi password" required>
+                <span id="error-message" style="display:none; color:#ff6b6b; font-size:0.8rem; margin-top:4px;">Password tidak sama</span>
+            </div>
+            <button type="submit" class="submit-btn">Daftar</button>
+        </form>
+        <p class="login-note">Sudah punya akun? <a href="login.html">Masuk</a></p>
+    </div>
+<<<<<<< HEAD
+    <!-- END COMPOSITION: card utama pendaftaran -->
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAn4VQ7GB2SCk5ibZZHhbUKgGvg-WoN_4",
+            authDomain: "studybeats-28772.firebaseapp.com",
+            projectId: "studybeats-28772",
+            storageBucket: "studybeats-28772.firebasestorage.app",
+            messagingSenderId: "647347128116",
+            appId: "1:647347128116:web:d49ce1509444641774c761"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        await setPersistence(auth, browserLocalPersistence);
+
+        // Registrasi: mengambil data formulir untuk membuat akun pengguna baru.
+        const form = document.getElementById('daftarForm');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
+        const errorMessage = document.getElementById('error-message');
+
+        confirmPassword.addEventListener('input', () => errorMessage.style.display = 'none');
+
+        // Registrasi: saat form dikirim, sistem memvalidasi password lalu membuat akun baru.
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (password.value !== confirmPassword.value) {
+                errorMessage.style.display = 'block';
+                confirmPassword.focus();
+                return;
+            }
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const pwd = password.value;
+
+            if (!name || !email || !pwd) {
+                alert('Silakan isi semua data terlebih dahulu.');
+                return;
+            }
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, pwd);
+                await updateProfile(userCredential.user, { displayName: name });
+                localStorage.setItem('loggedInUser', JSON.stringify({
+                    email: userCredential.user.email,
+                    name: name
+                }));
+                alert('Berhasil daftar! Selamat datang, ' + name + '!');
+                window.location.href = 'home.html';
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') {
+                    alert('Email sudah digunakan. Coba email lain.');
+                } else if (error.code === 'auth/weak-password') {
+                    alert('Password terlalu lemah. Minimal 6 karakter.');
+                } else {
+                    alert('Gagal daftar: ' + error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
