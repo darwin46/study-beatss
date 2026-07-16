@@ -109,7 +109,11 @@
                 <span id="moodBadgeText">Lo-Fi</span>
             </div>
             <div class="profile-menu-wrapper">
+<<<<<<< HEAD
                 <button type="button" id="profileBtn" class="cta-button" style="font-size: 0.85rem; padding: 8px 20px;">
+=======
+                <button id="profileBtn" class="cta-button" style="font-size: 0.85rem; padding: 8px 20px;">
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
                     <i class="fas fa-user"></i> Profile
                 </button>
                 <div class="profile-menu" id="profileMenu">
@@ -341,6 +345,7 @@
                 if (durationTimeEl && moodAudio.duration) durationTimeEl.textContent = formatTime(moodAudio.duration);
                 if (wasPlaying) {
                     setTimeout(() => {
+<<<<<<< HEAD
                         moodAudio.play()
                             .then(() => {
                                 playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -349,6 +354,10 @@
                                 console.log('Autoplay blocked');
                                 playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
                             });
+=======
+                        moodAudio.play().catch(e => console.log('Autoplay blocked'));
+                        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
                     }, 100);
                 } else {
                     playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -406,11 +415,15 @@
             moodAudio?.addEventListener('pause', () => {
                 sessionStorage.setItem('currentTime', moodAudio.currentTime.toString());
                 sessionStorage.setItem('wasPlaying', 'false');
+<<<<<<< HEAD
                 if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
             });
             moodAudio?.addEventListener('play', () => {
                 sessionStorage.setItem('wasPlaying', 'true');
                 if (player) player.classList.add('active');
+<<<<<<< HEAD
                 if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
             });
             window.addEventListener('pagehide', () => {
@@ -418,6 +431,23 @@
                 sessionStorage.setItem('wasPlaying', moodAudio && !moodAudio.paused ? 'true' : 'false');
             });
 
+=======
+            });
+
+            profileBtn?.addEventListener('click', function(event) {
+                event.stopPropagation();
+                profileMenu?.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function() {
+                profileMenu?.classList.remove('open');
+            });
+
+            profileMenu?.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+            
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
             profileClose?.addEventListener('click', function() {
                 profilePanel?.classList.remove('open');
                 profilePanel?.setAttribute('aria-hidden', 'true');

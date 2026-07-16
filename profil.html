@@ -268,7 +268,10 @@
                             <h2><i class="fas fa-history"></i> Histori Putar</h2>
                             <span>Riwayat lagu yang baru saja diputar</span>
                         </div>
+<<<<<<< HEAD
                         <button id="clearHistoryBtn" class="profile-btn" type="button" style="padding: 8px 12px; font-size: 0.85rem;">Hapus Semua</button>
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
                     </div>
                     <ul class="profile-list" id="historyList"></ul>
                 </article>
@@ -336,6 +339,7 @@
             }
         }
 
+<<<<<<< HEAD
         function saveHistory(historyEntries) {
             localStorage.setItem('studyBeatsPlaybackHistory', JSON.stringify(historyEntries));
         }
@@ -351,6 +355,8 @@
             renderHistory();
         }
 
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
         const fileUrlMap = {
             'lofi.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369770/lofi_p1gtxq.mp3',
             'deep focus.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369785/deep_focus_kzjznv.mp3',
@@ -384,7 +390,10 @@
             const trackFile = currentTrack.track || 'lofi.mp3';
             const mood = currentTrack.mood || 'Lo-Fi';
             const fileSrc = fileUrlMap[trackFile] || `./${trackFile}`;
+<<<<<<< HEAD
             const wasPlaying = sessionStorage.getItem('wasPlaying') === 'true';
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 
             title.textContent = mood;
             subtitle.textContent = trackFile;
@@ -401,6 +410,7 @@
                 };
 
                 audio.addEventListener('loadedmetadata', restoreTime, { once: true });
+<<<<<<< HEAD
                 audio.addEventListener('timeupdate', () => {
                     sessionStorage.setItem('currentTime', audio.currentTime.toString());
                 });
@@ -425,15 +435,24 @@
                         return;
                     }
 
+=======
+                restoreTime();
+
+                const tryPlay = () => {
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
                     audio.play().catch(() => {
                         subtitle.textContent = `${trackFile} • autoplay diblokir browser`;
                     });
                 };
 
                 document.addEventListener('pointerdown', tryPlay, { once: true });
+<<<<<<< HEAD
                 if (wasPlaying) {
                     tryPlay();
                 }
+=======
+                tryPlay();
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
             }
         }
 
@@ -494,16 +513,21 @@
                             <small>${item.mood} • ${formatHistoryTime(item.time)}</small>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div style="display:flex; align-items:center; gap:8px;">
                         <i class="fas fa-play" style="color: rgba(255,255,255,0.45);"></i>
                         <button type="button" class="history-delete-btn" data-time="${item.time || ''}" aria-label="Hapus histori ini" style="border:none; background: transparent; color: #fff; cursor:pointer; padding: 4px;">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
+=======
+                    <i class="fas fa-play" style="color: rgba(255,255,255,0.45);"></i>
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
                 </li>
             `).join('');
 
             attachListEvents(historyList);
+<<<<<<< HEAD
 
             historyList.querySelectorAll('.history-delete-btn').forEach(button => {
                 button.addEventListener('click', (event) => {
@@ -517,6 +541,10 @@
         const clearHistoryBtn = document.getElementById('clearHistoryBtn');
         clearHistoryBtn?.addEventListener('click', clearHistory);
 
+=======
+        }
+
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
         renderFavorites();
         renderHistory();
         initMiniPlayer();

@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 :root {
     --player-offset: 132px;
 }
 
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 * {
     margin: 0;
     padding: 0;
@@ -261,7 +264,11 @@ body::after {
     display: flex;
     align-items: stretch;
     gap: 24px;
+<<<<<<< HEAD
     padding: 96px 24px calc(40px + var(--player-offset, 132px));
+=======
+    padding: 96px 24px 40px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     width: 100%;
     margin: 0;
     min-height: calc(100vh - 92px);
@@ -297,7 +304,11 @@ body::after {
     border-radius: 32px;
     padding: 28px;
     box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
+<<<<<<< HEAD
     height: calc(100vh - 92px - var(--player-offset, 132px));
+=======
+    height: calc(100vh - 92px);
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     overflow: hidden;
     position: sticky;
     top: 92px;
@@ -313,6 +324,7 @@ body::after {
     height: 100%;
     display: flex;
     flex-direction: column;
+<<<<<<< HEAD
     min-height: 0;
 }
 
@@ -327,6 +339,14 @@ body::after {
     margin-top: 18px;
     padding-right: 4px;
     scrollbar-gutter: stable;
+=======
+}
+
+.home-sidebar-card .home-favorites-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 18px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 }
 
 .home-songs-panel {
@@ -364,8 +384,14 @@ body::after {
     width: 100%;
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     gap: 8px;
     padding: 10px 12px;
+=======
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 18px;
@@ -381,13 +407,18 @@ body::after {
 
 .song-play-button strong {
     display: block;
+<<<<<<< HEAD
     font-size: 0.95rem;
     line-height: 1.2;
+=======
+    font-size: 1rem;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 }
 
 .song-play-button span {
     display: block;
     color: rgba(255,255,255,0.65);
+<<<<<<< HEAD
     font-size: 0.8rem;
     line-height: 1.2;
 }
@@ -400,20 +431,34 @@ body::after {
 .song-play-button > i {
     margin-left: auto;
     flex-shrink: 0;
+=======
+    font-size: 0.85rem;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 }
 
 .song-row {
     display: grid;
     grid-template-columns: auto 1fr;
+<<<<<<< HEAD
     gap: 8px;
+=======
+    gap: 10px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     align-items: center;
 }
 
 .song-love-button {
+<<<<<<< HEAD
     width: 42px;
     height: 42px;
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 14px;
+=======
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     background: rgba(255,255,255,0.05);
     color: #f8fafc;
     display: grid;
@@ -469,6 +514,7 @@ body::after {
     font-size: 0.9rem;
 }
 
+<<<<<<< HEAD
 #homeFavoritesList {
     max-height: 320px;
     overflow-y: auto;
@@ -477,11 +523,17 @@ body::after {
     scrollbar-gutter: stable;
 }
 
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 .home-favorites-list,
 .home-songs-list {
     list-style: none;
     display: grid;
+<<<<<<< HEAD
     gap: 6px;
+=======
+    gap: 10px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 }
 
 .favorite-sidebar-item {
@@ -495,8 +547,13 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
+<<<<<<< HEAD
     gap: 8px;
     padding: 8px 10px;
+=======
+    gap: 12px;
+    padding: 12px 14px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     color: #f8fafc;
     text-decoration: none;
 }
@@ -528,14 +585,22 @@ body::after {
 
 .favorite-item-text strong {
     display: block;
+<<<<<<< HEAD
     margin-bottom: 2px;
     line-height: 1.2;
+=======
+    margin-bottom: 4px;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 }
 
 .favorite-item-text span {
     color: rgba(255,255,255,0.72);
+<<<<<<< HEAD
     font-size: 0.78rem;
     line-height: 1.2;
+=======
+    font-size: 0.85rem;
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 }
 
 .favorite-sidebar-item a:hover {

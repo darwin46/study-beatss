@@ -235,6 +235,7 @@ function initSmoothScroll() {
     });
 }
 
+<<<<<<< HEAD
 function syncPlayerOffset() {
     const player = document.querySelector('.player');
     const root = document.documentElement;
@@ -242,6 +243,8 @@ function syncPlayerOffset() {
     root.style.setProperty('--player-offset', `${offset}px`);
 }
 
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 function initPlayerControls() {
     const player = document.querySelector('.player');
     const playBtn = document.querySelector('.play-pause');
@@ -249,11 +252,25 @@ function initPlayerControls() {
     const nextBtn = document.getElementById('nextBtn');
     const moodAudio = document.getElementById('moodAudio');
 
+<<<<<<< HEAD
     syncPlayerOffset();
     window.addEventListener('resize', syncPlayerOffset);
 
     const updatePlayIcon = () => {
         setPlayPauseButtonState(playBtn, !!moodAudio && !moodAudio.paused);
+=======
+    const updatePlayIcon = () => {
+        if (!playBtn) return;
+        const icon = playBtn.querySelector('i');
+        if (!icon) return;
+        if (moodAudio && !moodAudio.paused) {
+            icon.classList.remove('fa-play');
+            icon.classList.add('fa-pause');
+        } else {
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play');
+        }
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     };
 
     const getCurrentSongIndex = () => {
@@ -273,21 +290,29 @@ function initPlayerControls() {
             if (!moodAudio) return;
             if (moodAudio.src && moodAudio.src !== '') {
                 if (moodAudio.paused) {
+<<<<<<< HEAD
                     moodAudio.play()
                         .then(() => updatePlayIcon())
                         .catch(error => {
                             console.log('Audio play blocked:', error);
                             updatePlayIcon();
                         });
+=======
+                    moodAudio.play().catch(error => console.log('Audio play blocked:', error));
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
                 } else {
                     moodAudio.pause();
                 }
             }
             updatePlayIcon();
+<<<<<<< HEAD
             if (player) {
                 player.classList.add('active');
                 syncPlayerOffset();
             }
+=======
+            if (player) player.classList.add('active');
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
         });
     }
 
@@ -300,10 +325,14 @@ function initPlayerControls() {
 
     if (moodAudio) {
         moodAudio.addEventListener('play', () => {
+<<<<<<< HEAD
             if (player) {
                 player.classList.add('active');
                 requestAnimationFrame(syncPlayerOffset);
             }
+=======
+            if (player) player.classList.add('active');
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
             updatePlayIcon();
             sessionStorage.setItem('wasPlaying', 'true');
             sessionStorage.setItem('playerActive', 'true');
@@ -438,11 +467,15 @@ function initProfilePanel() {
         profileMenu?.classList.toggle('open');
     });
 
+<<<<<<< HEAD
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.profile-menu-wrapper')) {
             closeMenu();
         }
     });
+=======
+    document.addEventListener('click', closeMenu);
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     profileMenu?.addEventListener('click', (e) => e.stopPropagation());
     profileMenu?.querySelector('a')?.addEventListener('click', closeMenu);
     logoutMenuBtn?.addEventListener('click', (e) => {
@@ -551,6 +584,7 @@ const HOME_MOOD_IMAGES = {
     'Chillhop': 'chillhop img.jpg'
 };
 
+<<<<<<< HEAD
 function setPlayPauseButtonState(button, isPlaying) {
     if (!button) return;
     const icon = button.querySelector('i');
@@ -592,6 +626,8 @@ function addToPlaybackHistory(moodName, fileName, title = '') {
     persistPlaybackHistoryToStorage(nextHistory.slice(0, 8));
 }
 
+=======
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
 function playHomeSong(mood, file, title) {
     const moodAudio = document.getElementById('moodAudio');
     const moodAudioSource = document.getElementById('moodAudioSource');
@@ -610,6 +646,7 @@ function playHomeSong(mood, file, title) {
     if (playerTrackName) playerTrackName.textContent = title || mood;
     if (playerTrackMood) playerTrackMood.textContent = `— ${file}`;
     if (trackCover) trackCover.src = HOME_MOOD_IMAGES[mood] || '';
+<<<<<<< HEAD
     if (player) {
         player.classList.add('active');
         syncPlayerOffset();
@@ -623,6 +660,12 @@ function playHomeSong(mood, file, title) {
             setPlayPauseButtonState(playPauseBtn, false);
         });
     addToPlaybackHistory(mood, file, title || file);
+=======
+    if (player) player.classList.add('active');
+    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+
+    moodAudio.play().catch(error => console.log('Audio play blocked:', error));
+>>>>>>> 90fbd99f37ac1f361ded4200d3f1391c729632ca
     sessionStorage.setItem('playerActive', 'true');
     sessionStorage.setItem('currentMood', mood);
     sessionStorage.setItem('currentTrack', file);
