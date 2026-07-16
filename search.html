@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Web Music</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style_home.css">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        .search-page {
+            min-height: 100vh;
+            padding: 120px 24px 180px;
+            color: #fff;
+        }
+
+        .search-header {
+            max-width: 920px;
+            margin: 0 auto 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .search-header h1 {
+            margin: 0;
+            font-size: 2.4rem;
+            letter-spacing: 0.02em;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #c7d2fe;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 560px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(12, 14, 32, 0.95);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            padding: 16px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            outline: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .search-description {
+            max-width: 920px;
+            margin: 0 auto 24px;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.75;
+        }
+
+        .search-layout {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            padding-top: 100px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            width: 300px;
+            background: rgba(12, 14, 32, 0.96);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            z-index: 2;
+        }
+
+        .sidebar-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+            text-decoration: none;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .header {
+            justify-content: flex-start;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .profile-button {
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            border-radius: 999px;
+        }
+
+        .profile-menu-wrapper {
+            position: relative;
+        }
+
+        .profile-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 180px;
+            background: rgba(12, 14, 32, 0.98);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 8px;
+            display: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            z-index: 1001;
+        }
+
+        .profile-menu.open {
+            display: block;
+        }
+
+        .profile-menu button,
+        .profile-menu a {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .profile-menu button:hover,
+        .profile-menu a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .header-search {
+            display: flex;
+            align-items: center;
+            flex: 1 1 420px;
+            max-width: 520px;
+            width: 100%;
+            margin: 0 16px 0 0;
+        }
+
+        .dropdown {
+            position: relative;
+            width: auto;
+        }
+
+        .dropdown-toggle {
+            width: auto;
+            justify-content: space-between;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(12, 14, 32, 0.96);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            margin-top: 8px;
+            z-index: 10;
+        }
+
+        .dropdown-content .sidebar-button {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .dropdown-content .sidebar-button:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown.open .dropdown-content {
+            display: block;
+        }
+
+        .sidebar-button:hover,
+        .sidebar-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-section {
+            margin-top: 28px;
+        }
+
+        .sidebar-section h3 {
+            margin: 0 0 16px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.78);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .sidebar-link {
+            width: 100%;
+            border: none;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            padding: 12px 14px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .history-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .history-list li {
+            background: rgba(255,255,255,0.05);
+            padding: 12px 14px;
+            border-radius: 16px;
+            color: #cbd5e1;
+        }
+
+        .recommendation-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 24px;
+        }
+
+        .recommendation-card ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .recommendation-card li {
+            color: rgba(255,255,255,0.88);
+        }
+
+        .recommendation-overview {
+            display: grid;
+            gap: 20px;
+        }
+
+        .music-category-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 22px;
+        }
+
+        .music-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .music-thumb {
+            width: 64px;
+            height: 64px;
+            border-radius: 22px;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, #7c3aed, #22d3ee);
+            flex-shrink: 0;
+        }
+
+        .music-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .music-card-header small {
+            color: rgba(255,255,255,0.75);
+        }
+
+        .music-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .music-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #e2e8f0;
+        }
+
+        .music-list li span:last-child {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.9rem;
+        }
+
+        .home-recommendation {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 24px;
+        }
+
+        .home-recommendation h2 {
+            margin: 0 0 16px;
+            font-size: 1.35rem;
+            color: #fff;
+        }
+
+        .home-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .home-list li {
+            background: rgba(255,255,255,0.05);
+            padding: 14px 16px;
+            border-radius: 18px;
+            color: #e2e8f0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        /* ── MUSIC PLAYER ── */
+        .audio-player-panel {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            max-width: 100%;
+            min-height: 90px;
+            height: 90px;
+            background: rgba(18, 18, 30, 0.97);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 999999 !important;
+            pointer-events: auto;
+            box-sizing: border-box;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+        }
+
+        .audio-player-panel.show {
+            display: flex !important;
+        }
+
+        .audio-player-panel *,
+        .audio-player-panel button,
+        .audio-player-panel input {
+            pointer-events: auto;
+        }
+
+        .search-main {
+            display: grid;
+            gap: 24px;
+            margin-left: 0;
+            padding-bottom: 180px;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .track-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 200px;
+        }
+
+        .track-cover {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .track-details h4 {
+            font-size: 0.95rem;
+            margin: 0 0 4px;
+            color: #fff;
+        }
+
+        .track-details p {
+            color: #b3b3b3;
+            font-size: 0.82rem;
+            margin: 0;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .favorite-btn {
+            margin-left: auto;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.66);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px;
+            border-radius: 12px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .favorite-btn:hover,
+        .favorite-btn.active {
+            color: #f97316;
+            background: rgba(249, 115, 22, 0.12);
+        }
+
+        .play-pause {
+            font-size: 1.8rem;
+            color: #667eea;
+        }
+
+        .progress-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            margin: 0 16px;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+        }
+
+        .result-label {
+            max-width: 920px;
+            margin: 0 auto 14px;
+            color: rgba(255,255,255,0.78);
+            font-size: 0.95rem;
+        }
+
+        .no-results {
+            max-width: 920px;
+            margin: 24px auto;
+            color: rgba(255,255,255,0.72);
+            font-size: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-dropdown">
+            <a href="home.html" class="logo" id="studyingClassBtn">
+                <i class="fas fa-music"></i>
+                <span>Studying Class</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </a>
+        </div>
+        <form class="header-search" action="search.html" method="get" style="max-width:520px; width:100%;">
+            <i class="fas fa-search search-icon"></i>
+            <input id="searchQuery" name="mood" type="text" placeholder="Cari mood, genre, atau lagu...">
+        </form>
+        <div class="header-right">
+            <div class="profile-menu-wrapper">
+                <button id="profileBtn" class="cta-button profile-button"><i class="fas fa-user"></i> Profile</button>
+                <div class="profile-menu" id="profileMenu">
+                    <a href="profil.html"><i class="fas fa-user-circle"></i> Lihat Profil</a>
+                    <button type="button" id="logoutMenuBtn"><i class="fas fa-right-from-bracket"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT: BAGIAN KIRI ADALAH SIDEBAR, BAGIAN KANAN ADALAH HASIL PENCARIAN. -->
+    <main class="search-layout">
+        <aside class="sidebar">
+            <div class="sidebar-buttons">
+                <button id="searchBtn" class="sidebar-button"><i class="fas fa-search"></i> Search</button>
+                <button id="recommendationBtn" class="sidebar-button"><i class="fas fa-star"></i> Recommendation</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Kategori</h3>
+                <button class="sidebar-link" data-mood="Lo-Fi">Lo-Fi</button>
+                <button class="sidebar-link" data-mood="Deep Focus">Deep Focus</button>
+                <button class="sidebar-link" data-mood="Classical">Classical</button>
+                <button class="sidebar-link" data-mood="Ambient">Ambient</button>
+                <button class="sidebar-link" data-mood="Chillhop">Chillhop</button>
+            </div>
+        </aside>
+        <section class="search-main">
+            <p class="search-description">Hasil pencarian akan ditampilkan di bawah. Jika kamu memilih Lo-Fi dari halaman utama, maka daftar Lo-Fi akan otomatis muncul di sini.</p>
+            <p class="result-label" id="resultLabel">Menampilkan semua mood</p>
+            <div class="profile-summary" id="profileSummary" style="display:none;">
+                <!-- Profile info will be shown here -->
+            </div>
+            <!-- RECOMMENDATION: MENAMPILKAN DAFTAR KATEGORI MUSIK YANG BISA DIPILIH. -->
+            <section class="recommendation-overview" id="recommendationOverview">
+                <div class="music-category-card" data-mood="Lo-Fi">
+                    <div class="music-card-header">
+                        <img src="lofi img.jpg" alt="Lo-Fi" class="music-thumb" style="object-fit: cover;">
+                        <div>
+                            <h3>Lo-Fi</h3>
+                            <small>Beats lembut untuk belajar</small>
+                        </div>
+                    </div>
+                    <ul class="music-list">
+                        <li>
+                            <span>lofi.mp3</span>
+                            <span>Play</span>
+                            <button class="favorite-btn" type="button" data-mood="Lo-Fi" data-file="lofi.mp3" aria-label="Tambah ke favorit"><i class="fas fa-heart"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="music-category-card" data-mood="Deep Focus">
+                    <div class="music-card-header">
+                        <img src="deep focus img.jpeg" alt="Deep Focus" class="music-thumb" style="object-fit: cover;">
+                        <div>
+                            <h3>Deep Focus</h3>
+                            <small>Instrumental tanpa distraksi</small>
+                        </div>
+                    </div>
+                    <ul class="music-list">
+                        <li>
+                            <span>deep focus.mp3</span>
+                            <span>Play</span>
+                            <button class="favorite-btn" type="button" data-mood="Deep Focus" data-file="deep focus.mp3" aria-label="Tambah ke favorit"><i class="fas fa-heart"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="music-category-card" data-mood="Classical">
+                    <div class="music-card-header">
+                        <img src="clasical img.jpeg" alt="Classical" class="music-thumb" style="object-fit: cover;">
+                        <div>
+                            <h3>Classical</h3>
+                            <small>Musik klasik untuk produktivitas</small>
+                        </div>
+                    </div>
+                    <ul class="music-list">
+                        <li>
+                            <span>classical.mp3</span>
+                            <span>Play</span>
+                            <button class="favorite-btn" type="button" data-mood="Classical" data-file="classical.mp3" aria-label="Tambah ke favorit"><i class="fas fa-heart"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="music-category-card" data-mood="Ambient">
+                    <div class="music-card-header">
+                        <img src="ambient.jpeg" alt="Ambient" class="music-thumb" style="object-fit: cover;">
+                        <div>
+                            <h3>Ambient</h3>
+                            <small>Suara alam dan lanskap ruang</small>
+                        </div>
+                    </div>
+                    <ul class="music-list">
+                        <li>
+                            <span>ambient.mp3</span>
+                            <span>Play</span>
+                            <button class="favorite-btn" type="button" data-mood="Ambient" data-file="ambient.mp3" aria-label="Tambah ke favorit"><i class="fas fa-heart"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="music-category-card" data-mood="Chillhop">
+                    <div class="music-card-header">
+                        <img src="chillhop img.jpg" alt="Chillhop" class="music-thumb" style="object-fit: cover;">
+                        <div>
+                            <h3>Chillhop</h3>
+                            <small>Hip-hop santai penuh vibe</small>
+                        </div>
+                    </div>
+                    <ul class="music-list">
+                        <li>
+                            <span>chillhop.mp3</span>
+                            <span>Play</span>
+                            <button class="favorite-btn" type="button" data-mood="Chillhop" data-file="chillhop.mp3" aria-label="Tambah ke favorit"><i class="fas fa-heart"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <!-- PLAYER: PANEL PEMUTAR MUSIK YANG MUNCUL SAAT USER MEMILIH LAGU. -->
+            <div class="audio-player-panel" id="playerPanel">
+                <div class="player-controls">
+                    <div class="track-info">
+                        <img class="track-cover" id="trackCover" src="" alt="Album Cover">
+                        <div class="track-details">
+                            <h4 id="playerTitle">Pilih mood untuk mulai</h4>
+                            <p id="playerSubtitle">— Select a song</p>
+                        </div>
+                    </div>
+                    <button class="control-btn" id="prevBtn"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-btn play-pause" id="playPauseBtn"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" id="nextBtn"><i class="fas fa-step-forward"></i></button>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+                <div class="volume-container">
+                    <button class="control-btn" id="volumeBtn"><i class="fas fa-volume-up"></i></button>
+                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+                </div>
+                <audio id="moodAudio" preload="none">
+                    <source id="moodAudioSource" src="" type="audio/mpeg">
+                </audio>
+            </div>
+            <!-- RESULT GRID: MENAMPILKAN HASIL PENCARIAN JIKA USER MENCARI SESUATU. -->
+            <section class="category-grid" id="resultGrid">
+                <div class="category-card lofi-card" data-mood="Lo-Fi">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="category-icon lofi-c"><i class="fas fa-headphones"></i></div>
+                        <h3>Lo-Fi</h3>
+                        <p>Lo-fi beats yang cozy untuk sesi belajar panjang</p>
+                    </div>
+                </div>
+                <div class="category-card focus-card" data-mood="Deep Focus">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="category-icon focus-c"><i class="fas fa-brain"></i></div>
+                        <h3>Deep Focus</h3>
+                        <p>Musik instrumental tanpa distraksi untuk konsentrasi maksimal</p>
+                    </div>
+                </div>
+                <div class="category-card classical-card" data-mood="Classical">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="category-icon classical-c"><i class="fas fa-music"></i></div>
+                        <h3>Classical</h3>
+                        <p>Musik klasik timeless untuk produktivitas tinggi</p>
+                    </div>
+                </div>
+                <div class="category-card ambient-card" data-mood="Ambient">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="category-icon ambient-c"><i class="fas fa-mountain"></i></div>
+                        <h3>Ambient</h3>
+                        <p>Suara alam dan ambient untuk relaksasi mendalam</p>
+                    </div>
+                </div>
+                <div class="category-card chillhop-card" data-mood="Chillhop">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="category-icon chillhop-c"><i class="fas fa-record-vinyl"></i></div>
+                        <h3>Chillhop</h3>
+                        <p>Hip-hop santai penuh vibes untuk mood yang ringan</p>
+                    </div>
+                </div>
+            </section>
+            <p class="no-results" id="noResults" style="display:none;">Tidak ada mood yang cocok dengan pencarian ini.</p>
+        </section>
+    </main>
+
+    <div class="profile-panel" id="profilePanel" aria-hidden="true">
+        <div class="profile-panel__backdrop" id="profileBackdrop"></div>
+        <div class="profile-panel__sheet">
+            <button class="profile-panel__close" id="profileClose"><i class="fas fa-times"></i></button>
+            <div class="profile-panel__header">
+                <div class="profile-avatar"><i class="fas fa-user-circle"></i></div>
+                <div>
+                    <h2>Profil Kamu</h2>
+                    <p>Lihat detail akun dan kontrol sesi.</p>
+                </div>
+            </div>
+            <div class="profile-panel__content">
+                <div class="profile-item">
+                    <span>Nama</span>
+                    <strong id="profileName">-</strong>
+                </div>
+                <div class="profile-item">
+                    <span>Email</span>
+                    <strong id="profileEmail">-</strong>
+                </div>
+                <div class="profile-item">
+                    <span>Status</span>
+                    <strong id="profileStatus">-</strong>
+                </div>
+                <div class="profile-item">
+                    <span>Favorit</span>
+                    <strong id="favoritesCount">0</strong>
+                </div>
+                <button class="cta-button" id="logoutBtn" style="width:100%; margin-top:16px;">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAn4VQ7GB2SCk5ibZZHhbUKgGvg-WoN_4",
+            authDomain: "studybeats-28772.firebaseapp.com",
+            projectId: "studybeats-28772",
+            storageBucket: "studybeats-28772.firebasestorage.app",
+            messagingSenderId: "647347128116",
+            appId: "1:647347128116:web:d49ce1509444641774c761"
+        };
+
+        // FAVORITE: INISIALISASI AUTENTIKASI DAN DATABASE UNTUK LOGIN, FAVORIT, DAN PLAYER. 
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const HISTORY_STORAGE_KEY = 'studyBeatsPlaybackHistory';
+
+        function getStoredPlaybackHistory() {
+            try {
+                return JSON.parse(localStorage.getItem(HISTORY_STORAGE_KEY) || '[]');
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function persistPlaybackHistoryToStorage(historyEntries) {
+            localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(historyEntries));
+            window.dispatchEvent(new CustomEvent('history:updated', { detail: historyEntries }));
+        }
+
+        let playbackHistory = getStoredPlaybackHistory();
+
+        function addToPlaybackHistory(moodName, fileName) {
+            const entry = {
+                mood: moodName,
+                file: fileName,
+                title: fileName,
+                cover: moodImages[moodName] || '',
+                time: new Date().toISOString()
+            };
+
+            const nextHistory = [...playbackHistory];
+            const existingIndex = nextHistory.findIndex(item => item.mood === moodName && item.file === fileName);
+            if (existingIndex >= 0) {
+                nextHistory.splice(existingIndex, 1);
+            }
+
+            nextHistory.unshift(entry);
+            playbackHistory = nextHistory.slice(0, 8);
+            persistPlaybackHistoryToStorage(playbackHistory);
+        }
+
+        async function saveLastPlayedSong(userId, moodName, fileName) {
+            addToPlaybackHistory(moodName, fileName);
+
+            if (!userId) return;
+            try {
+                await setDoc(doc(db, 'users', userId), {
+                    lastPlayed: {
+                        mood: moodName,
+                        file: fileName,
+                        cover: moodImages[moodName] || '',
+                        updatedAt: serverTimestamp()
+                    },
+                    history: playbackHistory
+                }, { merge: true });
+            } catch (error) {
+                console.warn('Gagal menyimpan lagu terakhir ke Firebase:', error);
+            }
+        }
+
+        async function restoreLastPlayedSong(user) {
+            if (!user) return;
+            try {
+                const docRef = doc(db, 'users', user.uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    const lastPlayed = data?.lastPlayed;
+                    if (lastPlayed && !sessionStorage.getItem('playerActive')) {
+                        const moodAudio = document.getElementById('moodAudio');
+                        const moodAudioSource = document.getElementById('moodAudioSource');
+                        const playerPanel = document.getElementById('playerPanel');
+                        const trackCover = document.getElementById('trackCover');
+                        const playerTitle = document.getElementById('playerTitle');
+                        const playerSubtitle = document.getElementById('playerSubtitle');
+
+                        const fileSrc = fileUrlMap[lastPlayed.file] || encodeURI(`./${lastPlayed.file}`);
+                        moodAudioSource.src = fileSrc;
+                        moodAudio.src = fileSrc;
+                        moodAudio.load();
+
+                        playerTitle.textContent = lastPlayed.mood || 'Lagu terakhir';
+                        playerSubtitle.textContent = `— ${lastPlayed.file}`;
+                        trackCover.src = lastPlayed.cover || moodImages[lastPlayed.mood] || '';
+
+                        currentMood = lastPlayed.mood || null;
+                        currentMoodIndex = moods.indexOf(lastPlayed.mood) >= 0 ? moods.indexOf(lastPlayed.mood) : 0;
+
+                        sessionStorage.setItem('currentMood', lastPlayed.mood || '');
+                        sessionStorage.setItem('currentTrack', lastPlayed.file || '');
+                        sessionStorage.setItem('playerActive', 'true');
+                    }
+
+                    const favorites = data?.favorites || [];
+                    favoriteSongs = favorites;
+
+                    const remoteHistory = Array.isArray(data?.history) ? data.history : null;
+                    if (remoteHistory && remoteHistory.length > 0) {
+                        playbackHistory = remoteHistory;
+                        persistPlaybackHistoryToStorage(playbackHistory);
+                    } else if (!playbackHistory.length) {
+                        // Hanya simpan ke localStorage jika tidak ada histori lokal sama sekali.
+                        persistPlaybackHistoryToStorage(playbackHistory);
+                    }
+
+                    persistFavoriteSongsToStorage();
+                    updateFavoriteButtons();
+                    updateFavoritesCount();
+                }
+            } catch (error) {
+                console.warn('Gagal memuat lagu terakhir dari Firebase:', error);
+            }
+        }
+
+        const FAVORITES_STORAGE_KEY = 'studyBeatsFavorites';
+
+        function getStoredFavoriteSongs() {
+            try {
+                return JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || '[]');
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function persistFavoriteSongsToStorage() {
+            localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteSongs));
+            window.dispatchEvent(new CustomEvent('favorites:updated', { detail: favoriteSongs }));
+        }
+
+        let favoriteSongs = getStoredFavoriteSongs();
+
+        function getFavoriteKey(moodName, fileName) {
+            return `${moodName}||${fileName}`;
+        }
+
+        function isSongFavorited(moodName, fileName) {
+            return favoriteSongs.some(item => item.mood === moodName && item.file === fileName);
+        }
+
+        async function saveFavoriteSongs(userId) {
+            if (!userId) return;
+            try {
+                await setDoc(doc(db, 'users', userId), {
+                    favorites: favoriteSongs
+                }, { merge: true });
+            } catch (error) {
+                console.warn('Gagal menyimpan favorit ke Firebase:', error);
+            }
+        }
+
+        function updateFavoriteButtons() {
+            document.querySelectorAll('.favorite-btn').forEach(button => {
+                const mood = button.dataset.mood;
+                const file = button.dataset.file;
+                if (isSongFavorited(mood, file)) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        function updateFavoritesCount() {
+            const favoritesCount = document.getElementById('favoritesCount');
+            if (favoritesCount) {
+                favoritesCount.textContent = favoriteSongs.length;
+            }
+        }
+
+        // Abstraction: tombol love hanya memanggil satu fungsi untuk menambah/menghapus favorit, detail logikanya tersembunyi di belakang.
+        // Favorite: tombol love akan menambah atau menghapus lagu dari daftar favorit pengguna.
+        async function toggleFavoriteSong(button) {
+            const moodName = button.dataset.mood;
+            const fileName = button.dataset.file;
+            const currentUser = auth.currentUser;
+
+            const existingIndex = favoriteSongs.findIndex(item => item.mood === moodName && item.file === fileName);
+            if (existingIndex >= 0) {
+                favoriteSongs.splice(existingIndex, 1);
+            } else {
+                favoriteSongs.push({ mood: moodName, file: fileName, cover: moodImages[moodName] || '' });
+            }
+
+            updateFavoriteButtons();
+            updateFavoritesCount();
+            persistFavoriteSongsToStorage();
+
+            if (currentUser) {
+                await saveFavoriteSongs(currentUser.uid);
+            }
+        }
+
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function normalizeText(text) {
+            return text.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+        }
+
+        const moodTrackMap = {
+            'lo-fi': { name: 'Lo-Fi', file: 'lofi.mp3', url: 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369770/lofi_p1gtxq.mp3' },
+            'deep focus': { name: 'Deep Focus', file: 'deep focus.mp3', url: 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369785/deep_focus_kzjznv.mp3' },
+            'classical': { name: 'Classical', file: 'classical.mp3', url: 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780370303/Classical_Music_for_Studying_Working_Focusing_Concentrating_1_Hour_u3rnc9.mp3' },
+            'ambient': { name: 'Ambient', file: 'ambient.mp3', url: 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369894/ambient_qjeavr.mp3' },
+            'chillhop': { name: 'Chillhop', file: 'chillhop.mp3', url: 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369833/chillhop_vzsmxv.mp3' }
+        };
+
+        const fileUrlMap = {
+            'lofi.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369770/lofi_p1gtxq.mp3',
+            'deep focus.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369785/deep_focus_kzjznv.mp3',
+            'classical.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780370303/Classical_Music_for_Studying_Working_Focusing_Concentrating_1_Hour_u3rnc9.mp3',
+            'ambient.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369894/ambient_qjeavr.mp3',
+            'chillhop.mp3': 'https://res.cloudinary.com/dx4bwoci7/video/upload/v1780369833/chillhop_vzsmxv.mp3'
+        };
+
+        function findMoodFromQuery(query) {
+            const normalized = normalizeText(query);
+            return Object.keys(moodTrackMap).find(key => normalized === normalizeText(key) || normalized.includes(normalizeText(key)));
+        }
+
+        function updateAudioPlayerFromQuery(query) {
+            const moodKey = findMoodFromQuery(query);
+            if (!moodKey) {
+                hideAudioPlayer();
+                return;
+            }
+            const info = moodTrackMap[moodKey];
+            const playerPanel = document.getElementById('playerPanel');
+            const moodAudio = document.getElementById('moodAudio');
+            const moodAudioSource = document.getElementById('moodAudioSource');
+            const playerTitle = document.getElementById('playerTitle');
+            const playerSubtitle = document.getElementById('playerSubtitle');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            if (!playerPanel || !moodAudio || !moodAudioSource || !playerTitle || !playerSubtitle) return;
+
+            const src = info.url || encodeURI(`./${info.file}`);
+            moodAudioSource.src = src;
+            moodAudio.src = src;
+            moodAudio.load();
+            playerTitle.textContent = `Mood: ${info.name}`;
+            playerSubtitle.textContent = `— ${info.file}`;
+            playerPanel.classList.add('show');
+
+            currentMood = info.name;
+            currentMoodIndex = moods.indexOf(info.name);
+            sessionStorage.setItem('currentMood', info.name);
+            sessionStorage.setItem('currentTrack', info.file);
+            sessionStorage.setItem('playerActive', 'true');
+
+            moodAudio.play().then(() => {
+                sessionStorage.setItem('wasPlaying', 'true');
+                if (playerPanel) playerPanel.classList.add('show');
+                if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }).catch(() => {
+                sessionStorage.setItem('wasPlaying', 'false');
+                if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            });
+        }
+
+        function hideAudioPlayer() {
+            const playerPanel = document.getElementById('playerPanel');
+            const moodAudio = document.getElementById('moodAudio');
+            if (playerPanel) {
+                playerPanel.classList.remove('show');
+            }
+            if (moodAudio) {
+                moodAudio.pause();
+            }
+        }
+
+        function showRecommendations() {
+            document.getElementById('recommendationOverview').style.display = 'grid';
+            document.getElementById('resultGrid').style.display = 'none';
+            document.getElementById('resultLabel').textContent = 'Rekomendasi semua kategori';
+            document.getElementById('noResults').style.display = 'none';
+        }
+
+        // SEARCH: memfilter hasil pencarian berdasarkan query yang dimasukkan pengguna.
+        function updateSearch(query) {
+            const categoryCards = document.querySelectorAll('.category-card');
+            const musicCards = document.querySelectorAll('.music-category-card');
+            const normalized = normalizeText(query);
+            const moods = ['Lo-Fi', 'Deep Focus', 'Classical', 'Ambient', 'Chillhop'];
+            const isMoodQuery = moods.some(mood => normalizeText(mood) === normalized);
+            let visibleCount = 0;
+
+            // Filter music category cards
+            musicCards.forEach(card => {
+                const mood = card.dataset.mood || '';
+                const isMatch = normalized === '' || normalizeText(mood) === normalized;
+                card.style.display = isMatch ? 'block' : 'none';
+                if (isMatch) visibleCount += 1;
+            });
+
+            // Filter category cards
+            categoryCards.forEach(card => {
+                const mood = normalizeText(card.dataset.mood || '');
+                const title = normalizeText(card.querySelector('h3')?.textContent || '');
+                const desc = normalizeText(card.querySelector('p')?.textContent || '');
+                const text = `${mood} ${title} ${desc}`;
+                const isMatch = normalized === '' || text.includes(normalized);
+
+                card.style.display = isMatch ? 'block' : 'none';
+                card.classList.toggle('selected', normalized !== '' && mood === normalized);
+                if (isMatch) visibleCount += 1;
+            });
+
+            const resultLabel = document.getElementById('resultLabel');
+            const noResults = document.getElementById('noResults');
+            if (normalized === '') {
+                resultLabel.textContent = 'Menampilkan semua mood';
+            } else {
+                resultLabel.textContent = isMoodQuery ? `Menampilkan: ${query}` : `Hasil pencarian untuk "${query}" (${visibleCount} ditemukan)`;
+            }
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Search: saat halaman dimuat, sistem menyiapkan pencarian dan menampilkan hasil awal.
+        document.addEventListener('DOMContentLoaded', async () => {
+            const searchInput = document.getElementById('searchQuery');
+            const moodQuery = getQueryParam('mood');
+            if (moodQuery) {
+                searchInput.value = moodQuery;
+                updateSearch(moodQuery);
+                showSearchResults();
+                updateAudioPlayerFromQuery(moodQuery);
+            } else {
+                updateSearch('');
+                showRecommendations();
+            }
+
+            const currentUser = auth.currentUser;
+            if (currentUser && !sessionStorage.getItem('playerActive')) {
+                await restoreLastPlayedSong(currentUser);
+            }
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user && !sessionStorage.getItem('playerActive')) {
+                    await restoreLastPlayedSong(user);
+                }
+            });
+
+            searchInput.addEventListener('input', function() {
+                updateSearch(this.value);
+                setUrlQuery(this.value);
+                if (this.value.trim() === '') {
+                    showRecommendations();
+                } else {
+                    showSearchResults();
+                }
+            });
+
+            const homeBtn = document.getElementById('homeBtn');
+            const searchBtn = document.getElementById('searchBtn');
+            const recommendationBtn = document.getElementById('recommendationBtn');
+            const profileBtn = document.getElementById('profileBtn');
+            const profileMenu = document.getElementById('profileMenu');
+            const logoutMenuBtn = document.getElementById('logoutMenuBtn');
+            const profilePanel = document.getElementById('profilePanel');
+            const profileClose = document.getElementById('profileClose');
+            const profileBackdrop = document.getElementById('profileBackdrop');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const mood = this.dataset.mood || '';
+                    searchInput.value = mood;
+                    updateSearch(mood);
+                    setUrlQuery(mood);
+                    showSearchResults();
+                });
+            });
+
+            homeBtn?.addEventListener('click', function() {
+                searchInput.value = '';
+                setUrlQuery('');
+                updateSearch('');
+                showRecommendations();
+                // Clear player state when going home
+                sessionStorage.removeItem('playerActive');
+            });
+
+            profileBtn?.addEventListener('click', function(event) {
+                event.stopPropagation();
+                profileMenu?.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function() {
+                profileMenu?.classList.remove('open');
+            });
+
+            profileMenu?.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+
+            searchBtn?.addEventListener('click', function() {
+                showSearchResults();
+                searchInput.focus();
+            });
+
+            recommendationBtn?.addEventListener('click', function() {
+                searchInput.value = '';
+                setUrlQuery('');
+                updateSearch('');
+                showRecommendations();
+            });
+
+            profileClose?.addEventListener('click', closeProfilePanel);
+            profileBackdrop?.addEventListener('click', closeProfilePanel);
+            async function doLogout() {
+                localStorage.removeItem('loggedInUser');
+                try {
+                    await signOut(auth);
+                } catch (error) {
+                    console.warn('Gagal logout dari Firebase:', error);
+                }
+                window.location.href = 'login.html';
+            }
+
+            logoutBtn?.addEventListener('click', doLogout);
+            logoutMenuBtn?.addEventListener('click', doLogout);
+
+            const cards = document.querySelectorAll('.category-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const mood = card.dataset.mood || '';
+                    searchInput.value = mood;
+                    updateSearch(mood);
+                    setUrlQuery(mood);
+                    showSearchResults();
+                });
+            });
+
+            renderProfileSummary();
+        });
+
+        function setUrlQuery(query) {
+            const url = new URL(window.location.href);
+            if (query.trim() === '') {
+                url.searchParams.delete('mood');
+            } else {
+                url.searchParams.set('mood', query);
+            }
+            window.history.replaceState({}, '', url);
+        }
+
+        function showSearchResults() {
+            const searchInput = document.getElementById('searchQuery');
+            const query = searchInput.value.trim();
+            const moods = ['Lo-Fi', 'Deep Focus', 'Classical', 'Ambient', 'Chillhop'];
+            const isMood = moods.some(mood => normalizeText(mood) === normalizeText(query));
+            
+            if (isMood || query === '') {
+                // Show recommendation-overview untuk mood atau kosong
+                document.getElementById('recommendationOverview').style.display = 'grid';
+                document.getElementById('resultGrid').style.display = 'none';
+            } else {
+                // Show result-grid untuk pencarian text
+                document.getElementById('recommendationOverview').style.display = 'none';
+                document.getElementById('resultGrid').style.display = 'grid';
+            }
+            document.getElementById('noResults').style.display = 'none';
+        }
+
+        function getLoggedInUser() {
+            return JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+        }
+
+        function renderProfileSummary() {
+            const profileSummary = document.getElementById('profileSummary');
+        const user = getLoggedInUser();
+        if (!profileSummary) return;
+
+        const profileName = document.getElementById('profileName');
+        const profileEmail = document.getElementById('profileEmail');
+        const profileStatus = document.getElementById('profileStatus');
+
+        if (user) {
+                if (profileName) profileName.textContent = user.name;
+                if (profileEmail) profileEmail.textContent = user.email;
+                if (profileStatus) profileStatus.textContent = 'Logged in';
+            } else {
+                profileSummary.style.display = 'block';
+                profileSummary.innerHTML = `
+                    <div class="profile-card" style="background:rgba(255,255,255,0.06);padding:18px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);">
+                        <h3 style="margin:0 0 8px;">Kamu belum login</h3>
+                        <p style="margin:0 0 4px;">Silakan masuk untuk menyimpan preferensi dan melihat profil.</p>
+                        <a href="login.html" style="color:#a78bfa; text-decoration:underline;">Masuk sekarang</a>
+                    </div>`;
+                if (profileName) profileName.textContent = '-';
+                if (profileEmail) profileEmail.textContent = '-';
+                if (profileStatus) profileStatus.textContent = 'Not logged in';
+            }
+        }
+
+        function openProfilePanel() {
+            const profilePanel = document.getElementById('profilePanel');
+            profilePanel?.classList.add('open');
+            profilePanel?.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeProfilePanel() {
+            const profilePanel = document.getElementById('profilePanel');
+            profilePanel?.classList.remove('open');
+            profilePanel?.setAttribute('aria-hidden', 'true');
+        }
+
+        // ===== MUSIC PLAYER FUNCTIONALITY =====
+        let currentMoodIndex = 0;
+        let currentMood = null;
+        const moods = ['Lo-Fi', 'Deep Focus', 'Classical', 'Ambient', 'Chillhop'];
+        const moodImages = {
+            'Lo-Fi': 'lofi img.jpg',
+            'Deep Focus': 'deep focus img.jpeg',
+            'Classical': 'clasical img.jpeg',
+            'Ambient': 'ambient.jpeg',
+            'Chillhop': 'chillhop img.jpg'
+        };
+
+        function initMusicPlayer() {
+            const musicListItems = document.querySelectorAll('.music-list li');
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            const moodAudio = document.getElementById('moodAudio');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeBtn = document.getElementById('volumeBtn');
+            const progressContainer = document.querySelector('.progress-container');
+            
+            musicListItems.forEach(item => {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function() {
+                    playMusic(this);
+                });
+            });
+
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', async (event) => {
+                    event.stopPropagation();
+                    await toggleFavoriteSong(button);
+                });
+            });
+
+            // Play/Pause button
+            playPauseBtn.addEventListener('click', togglePlayPause);
+
+            // Next/Previous buttons
+            nextBtn.addEventListener('click', playNext);
+            prevBtn.addEventListener('click', playPrevious);
+
+            // Volume control
+            volumeSlider.addEventListener('input', (e) => {
+                moodAudio.volume = e.target.value / 100;
+                updateVolumeIcon();
+            });
+
+            volumeBtn.addEventListener('click', toggleMute);
+
+            // Progress bar
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                moodAudio.currentTime = percent * moodAudio.duration;
+            });
+
+            // Update progress bar
+            moodAudio.addEventListener('timeupdate', updateProgress);
+            moodAudio.addEventListener('ended', playNext);
+
+            // Show player panel when the audio actually starts playing.
+            const playerPanel = document.getElementById('playerPanel');
+            moodAudio.addEventListener('play', () => {
+                if (playerPanel) playerPanel.classList.add('show');
+            });
+
+            // Initialize volume
+            moodAudio.volume = 0.7;
+        }
+
+        function playMusic(element) {
+            const card = element.closest('.music-category-card');
+            const moodName = card.querySelector('.music-card-header h3').textContent;
+            const fileName = element.querySelector('span:first-child').textContent.trim();
+            
+            const playerPanel = document.getElementById('playerPanel');
+            const playerTitle = document.getElementById('playerTitle');
+            const playerSubtitle = document.getElementById('playerSubtitle');
+            const trackCover = document.getElementById('trackCover');
+            const moodAudio = document.getElementById('moodAudio');
+            const moodAudioSource = document.getElementById('moodAudioSource');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            
+            // Set current mood for next/prev
+            currentMood = moodName;
+            currentMoodIndex = moods.indexOf(moodName);
+            
+            // Save current state to sessionStorage for persistence
+            sessionStorage.setItem('currentMood', moodName);
+            sessionStorage.setItem('currentTrack', fileName);
+            sessionStorage.setItem('playerActive', 'true');
+            
+            const currentUser = auth.currentUser;
+            saveLastPlayedSong(currentUser?.uid || null, moodName, fileName);
+
+            // Set audio source
+            const fileSrc = fileUrlMap[fileName] || encodeURI(`./${fileName}`);
+            moodAudioSource.src = fileSrc;
+            moodAudio.src = fileSrc;
+            moodAudio.load();
+            
+            // Update player UI
+            playerTitle.textContent = moodName;
+            playerSubtitle.textContent = `— ${fileName}`;
+            trackCover.src = moodImages[moodName];
+            playerPanel.classList.add('show');
+            
+            // Auto play and show controls once playback starts
+            moodAudio.play().then(() => {
+                sessionStorage.setItem('wasPlaying', 'true');
+                playerPanel.classList.add('show');
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }).catch(() => {
+                // Ignore autoplay interruption; the user can manually resume playback.
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            });
+            
+            // Highlight current item
+            document.querySelectorAll('.music-list li').forEach(li => {
+                li.style.opacity = '0.6';
+                li.style.borderColor = 'rgba(255,255,255,0.08)';
+            });
+            element.style.opacity = '1';
+            element.style.borderColor = 'rgba(255,255,255,0.3)';
+            element.style.backgroundColor = 'rgba(255,255,255,0.1)';
+        }
+
+        function togglePlayPause() {
+            const moodAudio = document.getElementById('moodAudio');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            
+            if (moodAudio.paused) {
+                moodAudio.play();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                sessionStorage.setItem('wasPlaying', 'true');
+            } else {
+                moodAudio.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                sessionStorage.setItem('wasPlaying', 'false');
+            }
+        }
+
+        function playNext() {
+            const musicItems = document.querySelectorAll('.music-list li');
+            currentMoodIndex = (currentMoodIndex + 1) % moods.length;
+            const nextMoodCard = document.querySelector(`[data-mood="${moods[currentMoodIndex]}"]`) 
+                || document.querySelector('.music-category-card:nth-child(' + (currentMoodIndex + 1) + ')');
+            
+            if (nextMoodCard) {
+                const nextMusicItem = nextMoodCard.querySelector('.music-list li');
+                if (nextMusicItem) {
+                    playMusic(nextMusicItem);
+                }
+            }
+        }
+
+        function playPrevious() {
+            const musicItems = document.querySelectorAll('.music-list li');
+            currentMoodIndex = (currentMoodIndex - 1 + moods.length) % moods.length;
+            const prevMoodCard = document.querySelector(`[data-mood="${moods[currentMoodIndex]}"]`) 
+                || document.querySelector('.music-category-card:nth-child(' + (currentMoodIndex + 1) + ')');
+            
+            if (prevMoodCard) {
+                const prevMusicItem = prevMoodCard.querySelector('.music-list li');
+                if (prevMusicItem) {
+                    playMusic(prevMusicItem);
+                }
+            }
+        }
+
+        function updateProgress() {
+            const moodAudio = document.getElementById('moodAudio');
+            const progressBar = document.getElementById('progressBar');
+            
+            if (moodAudio.duration) {
+                const percent = (moodAudio.currentTime / moodAudio.duration) * 100;
+                progressBar.style.width = percent + '%';
+                sessionStorage.setItem('currentTime', moodAudio.currentTime.toString());
+            }
+        }
+
+        function toggleMute() {
+            const moodAudio = document.getElementById('moodAudio');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeBtn = document.getElementById('volumeBtn');
+            
+            if (moodAudio.volume > 0) {
+                moodAudio.volume = 0;
+                volumeSlider.value = 0;
+            } else {
+                moodAudio.volume = 0.7;
+                volumeSlider.value = 70;
+            }
+            updateVolumeIcon();
+        }
+
+        function updateVolumeIcon() {
+            const moodAudio = document.getElementById('moodAudio');
+            const volumeBtn = document.getElementById('volumeBtn');
+            
+            if (moodAudio.volume === 0) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else if (moodAudio.volume < 0.5) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+            } else {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initMusicPlayer();
+            
+            // Restore player state if it was active
+            const playerActive = sessionStorage.getItem('playerActive');
+            const savedMood = sessionStorage.getItem('currentMood');
+            const savedTrack = sessionStorage.getItem('currentTrack');
+            
+            if (playerActive === 'true' && savedMood && savedTrack) {
+                const playerPanel = document.getElementById('playerPanel');
+                const trackCover = document.getElementById('trackCover');
+                const playerTitle = document.getElementById('playerTitle');
+                const playerSubtitle = document.getElementById('playerSubtitle');
+                const moodAudio = document.getElementById('moodAudio');
+                const moodAudioSource = document.getElementById('moodAudioSource');
+                const fileSrc = fileUrlMap[savedTrack] || encodeURI(`./${savedTrack}`);
+                const savedTime = parseFloat(sessionStorage.getItem('currentTime') || '0');
+                const wasPlaying = sessionStorage.getItem('wasPlaying') === 'true';
+
+                // Restore UI
+                playerTitle.textContent = savedMood;
+                playerSubtitle.textContent = `— ${savedTrack}`;
+                trackCover.src = moodImages[savedMood];
+                moodAudioSource.src = fileSrc;
+                moodAudio.src = fileSrc;
+                moodAudio.load();
+                if (savedTime > 0 && !isNaN(savedTime)) {
+                    moodAudio.currentTime = savedTime;
+                }
+                if (playerPanel) playerPanel.classList.add('show');
+                if (wasPlaying) {
+                    moodAudio.play().catch(() => {});
+                }
+                const playPauseBtn = document.getElementById('playPauseBtn');
+                if (playPauseBtn) {
+                    playPauseBtn.innerHTML = wasPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
